@@ -31,7 +31,7 @@ class DEMO_INPUT(smi.Script):
         return validate_input(definition)
 
     def stream_events(self, inputs: smi.InputDefinition, ew: smi.EventWriter):
-        return stream_events(inputs, ew)
+        return stream_events(inputs, ew, self)
 
 
 if __name__ == '__main__':
