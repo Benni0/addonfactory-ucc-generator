@@ -505,6 +505,10 @@
             "$ref": "#/definitions/searchExample"
           },
           "minItems": 1
+        },
+        "related": {
+          "type": "string",
+          "description": "List of SPL commands related to this command."
         }
       },
       "required": [
@@ -552,6 +556,10 @@
         "syntax": {
           "type": "string",
           "description": "Syntax string for the value of the parameter"
+        },
+        "description": {
+          "type": "string",
+          "description": "Is provided as doc parameter for Option."
         }
       },
       "required": [

@@ -91,6 +91,7 @@ class SearchbnfConf(FileGenerator):
                         "usage": command["usage"],
                         "tags": command.get("tags", None),
                         "examples": command.get("examples", []),
+                        "related": command.get("related", None),
                     }
                     self.searchbnf_info.append(searchbnf_dict)
 

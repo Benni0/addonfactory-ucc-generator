@@ -6,8 +6,11 @@ description = {{info["description"]}}
 shortdesc = {{info["shortdesc"]}}
 {% endif %}
 usage = {{info["usage"]}}
-{% if info["tags"]%}
+{% if info["tags"] %}
 tags = {{info["tags"]}}
+{% endif %}
+{% if info["related"] %}
+related = {{ info["related"] }}
 {% endif %}
 {% for example in info["examples"] %}
 example{{ loop.index }} = {{ example["search"] }}

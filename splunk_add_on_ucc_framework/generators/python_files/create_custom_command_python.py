@@ -56,6 +56,7 @@ class CustomCommandPy(FileGenerator):
                     "require": argument.get("required", False),
                     "validate": argument.get("validate"),
                     "default": argument.get("defaultValue"),
+                    "description": argument.get("description"),
                 }
                 self.argument_generator(argument_list, argument_dict)
 
@@ -111,19 +112,29 @@ class CustomCommandPy(FileGenerator):
             else:
                 validate_str = f", validate=validators.{validate_type}()"
 
-        if arg["default"] is None:
-            arg_str = (
-                f"{arg['name']} = Option(name='{arg['name']}', "
-                f"require={arg.get('require')}"
-                f"{validate_str})"
-            )
-        else:
-            arg_str = (
-                f"{arg['name']} = Option(name='{arg['name']}', "
-                f"require={arg.get('require')}"
-                f"{validate_str}, "
-                f"default='{arg.get('default', '')}')"
-            )
+        default = ""
+        if arg["default"]:
+            default = f", default='{arg['default']}'"
+
+        doc = ""
+        if arg["description"]:
+            description = arg["description"].replace("'", '"')
+            doc = f", doc='{description}'"
+        
+        arg_str = (
+            f"{arg['name']} = Option(name='{arg['name']}', "
+            f"require={arg.get('require')}"
+            f"{validate_str}{default}{doc})"
+        )
+
+        if len(arg_str) > 130:
+            ident_distance = 8
+            for prop in ("name", "require", "validate", "default", "doc"):
+                prop_start = arg_str.find(f"{prop}=")
+                if prop_start != -1:
+                    arg_str = arg_str[:prop_start] + "\n" + (" " * ident_distance) + arg_str[prop_start:]
+            arg_str = arg_str[:-1] + "\n" + (" " * 4) + arg_str[-1:]
+
 
         argument_list.append(arg_str)
         return argument_list
