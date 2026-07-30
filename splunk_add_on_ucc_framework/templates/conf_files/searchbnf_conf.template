@@ -2,5 +2,18 @@
 [{{info["command_name"]}}-command]
 syntax = {{info["syntax"]}}
 description = {{info["description"]}}
+{% if info["shortdesc"]%}
+shortdesc = {{info["shortdesc"]}}
+{% endif %}
 usage = {{info["usage"]}}
+{% if info["tags"] %}
+tags = {{info["tags"]}}
+{% endif %}
+{% if info["related"] %}
+related = {{ info["related"] }}
+{% endif %}
+{% for example in info["examples"] %}
+example{{ loop.index }} = {{ example["search"] }}
+comment{{ loop.index }} = {{ example["comment"] }}
+{% endfor -%}
 {% endfor -%}
